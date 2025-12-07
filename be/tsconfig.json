@@ -1,0 +1,21 @@
+// tsconfig.json = a JSON file that tells TypeScript how to compile your code.
+
+// {
+//     "compilerOptions": {
+//         "target": "ES6",
+//         "esModuleInterop": true,
+//         "moduleResolution": "node",
+//         "outDir": "dist",
+//     }
+// }
+
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
