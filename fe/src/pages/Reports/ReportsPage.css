@@ -1,0 +1,27 @@
+/* ReportsPage.css */
+.reports-page {
+  padding: 0 18px 30px;
+}
+
+.reports-page button {
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #dcdcdc;
+  background: #111;
+  color: #fff;
+  cursor: pointer;
+}
+
+.reports-page button:hover {
+  opacity: 0.92;
+}
+
+.error {
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #f3b4b4;
+  background: #fff1f1;
+  color: #a30000;
+}

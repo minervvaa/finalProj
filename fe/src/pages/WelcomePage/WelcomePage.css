@@ -1,0 +1,116 @@
+/* PAGE */
+.welcome-page {
+    position: relative;
+    /* min-height: 100vh; */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+
+    background: linear-gradient(to bottom,
+            #eef4ff 0%,
+            #dbe7ff 40%,
+            #c8dbff 100%);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* .layer{
+  position: absolute;
+  left: 40%;
+  transform: translateX(-50%);
+  width: 100%;           
+  height: auto;
+  pointer-events: none;
+  user-select: none; 
+} */
+
+/* .back {
+    position: absolute;
+    width: 120%;
+    height: 100%;
+    object-fit: cover;   
+    object-position: center bottom; 
+    pointer-events: none;
+    user-select: none;
+
+} */
+
+.back2 {
+    position: absolute;
+    width: 100vw;
+    height: 100%;
+    /* object-fit: cover;    */
+    object-position: center 0px;
+    pointer-events: none;
+    user-select: none;
+
+}
+
+
+/* CONTENT */
+.welcome-content {
+    position: absolute;
+    text-align: center;
+    max-width: 550px;
+    margin-top: -300px;
+    /* padding: 0 20px; */
+}
+
+.welcome-content h1 {
+    font-size: clamp(60px, 7vw, 90px);
+    font-weight: 600;
+    color: #354268;
+    margin-top: 16px;
+    max-width: 400px;
+    margin: auto;
+
+}
+
+.welcome-content p {
+    font-size: 20px;
+    color: #4a5d85;
+    margin-bottom: 32px;
+}
+
+/* ACTIONS */
+.welcome-actions {
+
+    max-width: 500px;
+    width: 50%;
+    margin: auto;
+    /* display: flex; */
+    /* flex-direction: column; */
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* BUTTONS */
+.primary-btn {
+    /* background: linear-gradient(135deg, #4f7cff, #6b93ff); */
+    /* color: white; */
+    border: none;
+    /* padding: 14px 28px; */
+    /* border-radius: 14px; */
+     font-weight: 60 ;
+    cursor: pointer;
+    /* box-shadow: 0 12px 30px rgba(79, 124, 255, 0.35); */
+    /* transition: transform 0.2s ease, box-shadow 0.2s ease; */
+    margin-bottom: 10px;
+}
+
+/* .primary-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 40px rgba(79, 124, 255, 0.45);
+} */
+
+.link-btn {
+    background: none;
+    border: none;
+    color: #4f7cff;
+    font-weight: 600;
+    cursor: pointer;
+}

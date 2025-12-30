@@ -1,0 +1,22 @@
+:root{
+  --bg: #f6f9ff;
+  --card: #ffffff;
+  --text: #0f172a;
+  --muted: #64748b;
+
+  --primary: #2f6bff;     /* main blue */
+  --primary-2: #63a7ff;   /* light blue */
+  --accent: #a7d4ff;      /* soft background */
+  --shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+
+  --radius: 28px;
+  --radius-sm: 14px;
+}
+
+html, body, #root { height: 100%; }
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}

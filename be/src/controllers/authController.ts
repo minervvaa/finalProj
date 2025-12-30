@@ -1,86 +1,41 @@
 import { Router, Request, Response } from "express";
-import { runQuery } from "../dal/dal";
+import { loginUser, registerUser } from "../services/authService";
 
 const router = Router();
-
-// simple email regex just to check format
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-// POST /auth/register
 router.post("/register", async (req: Request, res: Response) => {
+  //TODO check it in postman  ~ done // (POST http://localhost:3030/auth/register)
   try {
+    //getting the user data from request body
     const { firstName, lastName, email, password } = req.body;
 
-    if (!firstName || !lastName || !email || !password) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
+    // call (registerUser from service) to create a new user in the db
+    const user = await registerUser(firstName, lastName, email, password);
 
-    if (!emailRegex.test(email)) {
-      return res.status(400).json({ error: "Email is not valid" });
-    }
-
-    if (password.length < 4) {
-      return res.status(400).json({ error: "Password must be at least 4 characters" });
-    }
-
-    // check if email already exists
-    const existing = (await runQuery(
-      "SELECT * FROM users WHERE email = ?",
-      [email]
-    )) as any[];
-
-    if (existing.length > 0) {
-      return res.status(400).json({ error: "Email already in use" });
-    }
-
-    // insert user as regular user
-    await runQuery(
-      "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, 'user')",
-      [firstName, lastName, email, password]
-    );
-
-    // get created user (for FE)
-    const rows = (await runQuery(
-      "SELECT id, first_name, last_name, email, role FROM users WHERE email = ?",
-      [email]
-    )) as any[];
-
-    const user = rows[0];
-
+    // sending the user (that we created) back as a JSON response
     res.json({ user });
+
+    // catching any problems during registration, if there is a problem -> send error 
   } catch (err: any) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    res.status(400).json({ error: err.message || "Registration failed" });
   }
 });
 
-// POST /auth/login
 router.post("/login", async (req: Request, res: Response) => {
+  //TODO check it in postman ~ done //(POST http://localhost:3030/auth/login)
   try {
+
+    //getting the email and password from the request body
     const { email, password } = req.body;
 
-    if (!email || !password) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
+    // call (loginUser from the service) for validation
+    const user = await loginUser(email, password);
 
-    const rows = (await runQuery(
-      "SELECT id, first_name, last_name, email, password, role FROM users WHERE email = ?",
-      [email]
-    )) as any[];
-
-    const user = rows[0];
-
-    if (!user || user.password !== password) {
-      return res.status(401).json({ error: "Wrong email or password" });
-    }
-
-    // Don’t send password back to client
-    delete user.password;
-
+    // sending the logged-in user back as a JSON response
     res.json({ user });
+
+    // catching any problems during login, if there is a problem -> send error 
   } catch (err: any) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    res.status(400).json({ error: err.message || "Login failed" });
   }
 });
 

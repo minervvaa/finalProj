@@ -1,0 +1,181 @@
+/* RegisterPage.css (matched to your LoginPage.css) */
+
+.register-page {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+
+  /* BACKGROUND IMAGE */
+  background-image: url("../../assets/back.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+
+  overflow: hidden;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.register-blob {
+  max-width: 900px;
+  max-height: 850px;
+  height: auto;
+  width: 100%;
+
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #ffffffec;
+  border-radius: 40% 60% 65% 35% / 40% 35% 65% 60%;
+  /* border-radius: 60px; */
+
+  margin-top: 30px;
+
+ animation: registerBlobSlide 0.9s cubic-bezier(0.22, 1, 0, 1) forwards;
+}
+
+/* animation */
+@keyframes registerBlobSlide {
+  0% {
+    transform: translateX(0) scale(0.96);
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 2;
+  }
+
+  100% {
+    transform: translateX(1000px) scale(1);
+    opacity: 1;
+  }
+}
+
+
+.register-blob h1 {
+  font-size: 75px;
+  font-weight: 800;
+  color: #1e2a4a;
+  margin-bottom: 10px;
+}
+
+.register-blob p {
+  margin-bottom: 28px;
+  color: #4a5d85;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* FORM */
+.register-form {
+  max-width: 450px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 16px;
+}
+
+.register-form input {
+  margin: auto;
+  height: 48px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid #d6e1ff;
+  background: #fbfcff;
+  font-size: 15px;
+}
+
+.register-form input:focus {
+  outline: none;
+  border-color: #4f7cff;
+  box-shadow: 0 0 0 3px rgba(79, 124, 255, 0.15);
+}
+
+.input-with-icon {
+  position: relative;
+  width: 100%;
+}
+
+.input-with-icon i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8aa3ff;
+  font-size: 18px;
+}
+
+.input-with-icon input {
+  width: 100%;
+  padding: 14px 16px 14px 46px; 
+  border-radius: 14px;
+  border: 1px solid #dbe4ff;
+  font-size: 15px;
+}
+
+
+
+.primary-btn {
+  margin-top: 12px;
+  height: 48px;
+  width: 100%;
+  border-radius: 14px;
+
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  cursor: pointer;
+
+  color: white;
+  background: linear-gradient(135deg, #4f7cff, #6b93ff);
+  box-shadow: 0 14px 36px rgba(79, 124, 255, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.primary-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 44px rgba(79, 124, 255, 0.42);
+}
+
+.bottom-links {
+  margin-top: 18px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+  color: #4a5d85;
+  font-size: 14px;
+}
+
+.link-btn {
+  border: none;
+  background: none;
+  color: #4f7cff;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* error */
+.error {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid rgba(255, 0, 0, 0.18);
+  color: #7a1b1b;
+  font-size: 13px;
+}
+
+/* RESPONSIVE (match your login) */
+@media (max-width: 950px) {
+  .register-page {
+    grid-template-columns: 1fr;
+  }
+
+  
+}

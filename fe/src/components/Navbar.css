@@ -1,0 +1,151 @@
+/* components/Navbar.css */
+.navbar2{
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 0 22px;
+  background: #ffffff;
+  border-bottom: 1px solid #eef1f6;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* left */
+.nb-left{ display:flex; align-items:center; }
+.nb-brand{
+  text-decoration: none;
+  color: #111827;
+  font-weight: 900;
+  letter-spacing: .2px;
+}
+
+/* middle links */
+.nb-mid{
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.nb-link{
+  text-decoration: none;
+  color: #111827;
+  font-weight: 600;
+  opacity: .78;
+}
+
+.nb-link:hover{
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* highlight active route for NavLink */
+.nb-link.active{
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* right */
+.nb-right{ display:flex; align-items:center; }
+
+.nb-drawer-btn{
+  border: none;
+  background: #fff;
+  border-radius: 999px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* drawer + backdrop */
+.nb-backdrop{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .18s ease;
+  z-index: 60;
+}
+
+.nb-backdrop.open{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nb-drawer{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 320px;
+  background: #fff;
+  border-left: 1px solid #eef1f6;
+  transform: translateX(105%);
+  transition: transform .18s ease;
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  padding: 14px;
+}
+
+.nb-drawer.open{
+  transform: translateX(0);
+}
+
+.nb-drawer-head{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eef1f6;
+}
+
+.nb-user{
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+.nb-user-name{ font-weight: 800; color:#111827; }
+.nb-user-role{ opacity:.7; font-size: 12px; }
+
+.nb-close{
+  border: none;
+  background: #fff;
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+}
+
+.nb-drawer-body{
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.nb-logout{
+  width: 100%;
+  border: 1px solid #e6eaf2;
+  background: #fff;
+  border-radius: 999px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.nb-logout:hover{
+  background: #f5f7fb;
+}
+
+/* optional: hide middle links on very small screens */
+@media (max-width: 560px){
+  .nb-mid{ display: none; }
+}

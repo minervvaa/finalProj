@@ -1,6 +1,7 @@
+// the same code you ues in class (copy and paste it )
+
 import fs from "fs";
 import Database, { Database as DB, RunResult } from "better-sqlite3";
-
 
 export async function openDb(dbFile: string = "db.db"): Promise<DB> {
 

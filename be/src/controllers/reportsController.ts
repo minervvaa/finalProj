@@ -1,88 +1,48 @@
-// src/controllers/reportsController.ts
 import { Router, Request, Response } from "express";
-import { runQuery } from "../dal/dal";
+import { requireAdmin } from "../middleware/authMiddleware";
+import { getFollowersReport, getFollowersCsv } from "../services/reportsService";
 
 const router = Router();
 
-// helper: get current user from headers
-function getCurrentUser(req: Request) {
-  const userIdHeader = req.header("x-user-id");
-  const roleHeader = req.header("x-user-role");
 
-  const id = userIdHeader ? Number(userIdHeader) : null;
-  const role = roleHeader === "admin" ? "admin" : "user";
-
-  return { id, role };
-}
-
-// GET /reports/followers  (admin only)
-// returns JSON: [{ destination, followers }]
-router.get("/followers", async (req: Request, res: Response) => {
+// JSON for chart
+router.get("/followers", requireAdmin, async (_req: Request, res: Response) => {
+  //TODO check it in postman or chrom
+  
   try {
-    const { role } = getCurrentUser(req);
-    if (role !== "admin") {
-      return res.status(403).json({ error: "Admin only" });
-    }
-
-    const rows = (await runQuery(
-      `
-      SELECT 
-        v.destination AS destination,
-        COUNT(f.id) AS followers
-      FROM vacations v
-      LEFT JOIN followers f ON v.id = f.vacation_id
-      GROUP BY v.id
-      ORDER BY v.destination ASC
-      `
-    )) as any[];
-
+    // call (getFollowersReport from service) to get the destination + followers count
+    const rows = await getFollowersReport();
     res.json(rows);
+
+   // catching any server error, if there is a problem -> return status 500
   } catch (err: any) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: err.message || "Server error" });
   }
 });
 
-// GET /reports/followers.csv  (admin only)
-// returns CSV file: destination,followers
-router.get("/followers.csv", async (req: Request, res: Response) => {
+// CSV for download (same report but as a CSV file)
+router.get("/followers.csv", requireAdmin, async (_req: Request, res: Response) => {
+  //TODO check it in postman or chrom
+
   try {
-    const { role } = getCurrentUser(req);
-    if (role !== "admin") {
-      return res.status(403).json({ error: "Admin only" });
-    }
+    
+    // call (getFollowersCsv from service) to build the CSV string
+    const csv = await getFollowersCsv();
 
-    const rows = (await runQuery(
-      `
-      SELECT 
-        v.destination AS destination,
-        COUNT(f.id) AS followers
-      FROM vacations v
-      LEFT JOIN followers f ON v.id = f.vacation_id
-      GROUP BY v.id
-      ORDER BY v.destination ASC
-      `
-    )) as any[];
-
-    // build CSV text
-    let csv = "destination,followers\n";
-    for (const row of rows) {
-      // simple escaping: wrap destination in quotes
-      const dest = String(row.destination).replace(/"/g, '""');
-      const followers = Number(row.followers) || 0;
-      csv += `"${dest}",${followers}\n`;
-    }
-
+    // setting response headers so the browser knows it's a CSV file
     res.setHeader("Content-Type", "text/csv");
+
+    // forcing download with a filename
     res.setHeader(
       "Content-Disposition",
       'attachment; filename="vacations-followers.csv"'
     );
-
+    // sending the CSV text as the response body
     res.send(csv);
+
+   // catching any server error, if there is a problem -> return status 500
   } catch (err: any) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
+    res.status(500).json({ error: err.message || "Server error" });
   }
 });
 
